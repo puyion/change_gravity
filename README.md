@@ -2,12 +2,18 @@
 changing direction of gravity of player in godot 2d
 
 
--for now, gravity only works in up and down directions, planning to add left and right
--only affects the player
--ignore added rigid body, that was for early tests, the gravity mechanic does not work on it
+-gravity works in all directions
+-character rotates depending on direction
+-character is able to jump in all gravity directions
 
 
 
 
 controls:
-arrow keys (left, right, up = jump, down = change direction of gravity)
+arrow keys (left, right, up = jump)
+wasd keys (change gravity in direction of key)
+
+
+next steps:
+-customize character
+-possible planets with own gravity
