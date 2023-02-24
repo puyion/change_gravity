@@ -12,10 +12,32 @@ var velocity = Vector2(0,0)
 
 #directional index
 var index = 0
-var grav_direction = {"grav_left": Vector2(-1,0),
-					"grav_right": Vector2(1,0),
-					"grav_up": Vector2(0,-1),
-					"grav_down": Vector2(0,1)}
+
+
+var grav_change = {"left":{"gravity_dir": Vector2(-1,0), #direction of gravity
+							"index": -1, #for x and y switch (= abs(gravity vector.y) - 1)
+							"speed_dir": 1, #change left and right
+							"input": "grav_left" #button input
+							},
+					"right":{"gravity_dir": Vector2(1,0),
+							"index": -1,
+							"speed_dir": -1,
+							"input": "grav_right"
+							},
+					"up":{"gravity_dir": Vector2(0,-1),
+							"index": 0,
+							"speed_dir": 1,
+							"input": "grav_up"
+							},
+					"down":{"gravity_dir": Vector2(0,1),
+							"index": 0,
+							"speed_dir": 1,
+							"input": "grav_down"
+							}
+					}
+
+#index calls grav_change dictionary
+var grav_change_index = "down"
 
 func _ready():
 	pass
@@ -26,33 +48,34 @@ func _physics_process(_delta):
 	velocity.x += gravity_magnitude * gravity_vector.x
 	velocity.y += gravity_magnitude * gravity_vector.y
 	
-	index = abs(gravity_vector.y) - 1
 	
 	#basic movement commands
-	if Input.is_action_pressed("ui_right"):
-		velocity[index] = speed
 	if Input.is_action_pressed("ui_left"):
-		velocity[index] = -speed
+		velocity[grav_change[grav_change_index]["index"]] = -speed * grav_change[grav_change_index]["speed_dir"]
+	if Input.is_action_pressed("ui_right"):
+		velocity[grav_change[grav_change_index]["index"]] = speed * grav_change[grav_change_index]["speed_dir"]
+	
 	if Input.is_action_just_pressed("ui_up") and ((gravity_vector.x == 0 and is_on_floor()) or (gravity_vector.y == 0 and is_on_wall())):
 		#the jump will be in the opposite of gravity direction
-		velocity[index + 1] = jumpforce * (-gravity_vector[index + 1])	
+		velocity[grav_change[grav_change_index]["index"] + 1] = jumpforce * (-gravity_vector[grav_change[grav_change_index]["index"] + 1])	
 	
+	
+	
+	#basic movement 
+	move_and_slide(velocity, Vector2(-1 * gravity_vector[grav_change[grav_change_index]["index"]], -1 * gravity_vector[grav_change[grav_change_index]["index"] + 1]))
+	velocity[grav_change[grav_change_index]["index"]] = lerp(velocity[grav_change[grav_change_index]["index"]], 0, 0.2)
+
+
 	#rotate character based on direction of gravity
 	self.rotation_degrees = rad2deg(gravity_vector.angle()) - 90
 	
-	#basic movement 
-	move_and_slide(velocity, Vector2(-1 * gravity_vector[index], -1 * gravity_vector[index + 1]))
-	velocity[index] = lerp(velocity[index], 0, 0.2)
-
 	#change gravity based on wasd keys
-	for i in grav_direction:
-		if Input.is_action_pressed(i):
-			gravity_vector = grav_direction[i]
+	for i in grav_change:
+		if Input.is_action_pressed(grav_change[i]["input"]):
+			gravity_vector = grav_change[i]["gravity_dir"]
+			grav_change_index = i
 			velocity = Vector2.ZERO
-			
-	"""set a variable to check gravity direction
-		change speed based on direction
-		this will also help for the actual sprite direction"""
+
 	
 
 
