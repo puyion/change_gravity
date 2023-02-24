@@ -9,8 +9,9 @@ NOTES:
 
 -character is able to jump in all gravity directions
 
--issue is that when gravity is to the right, character's left and right directions are reversed
+-character now moves properly in all directions
 
+-gravity code has been optimized into dictionary
 
 
 CONTROLS:
@@ -22,8 +23,12 @@ wasd keys (change gravity in direction of key)
 
 NEXT STEPS:
 
--fix issue
-
 -customize character
+
+-change way gravity changes
+
+-create levels
+
+-possible wall jump
 
 -possible planets with own gravity
