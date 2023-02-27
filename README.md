@@ -13,6 +13,8 @@ NOTES:
 
 -gravity code has been optimized into dictionary
 
+-added character (amateur homemade) sprites and animations for idle, movement, jump, punch
+
 
 CONTROLS:
 
@@ -20,10 +22,9 @@ arrow keys (left, right, up = jump)
 
 wasd keys (change gravity in direction of key)
 
+space bar (punch)
 
 NEXT STEPS:
-
--customize character
 
 -change way gravity changes
 
