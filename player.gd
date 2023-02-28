@@ -134,8 +134,8 @@ func move_state():
 	#in air
 	if (gravity_vector.x == 0 and not(is_on_floor())) or (gravity_vector.y == 0 and not(is_on_wall())):
 		anitree.travel("jump")
-		#switching to wall
-		if $wallchecker.is_colliding():
+		#switching to wall, checks your going into wall -> so you can still jump against a wall and not be wall sliding
+		if $wallchecker.is_colliding() and ((Input.is_action_pressed("ui_left") and $wallchecker.rotation_degrees == 90 * grav_change[grav_change_index]["wall_dir"]) or (Input.is_action_pressed("ui_right") and $wallchecker.rotation_degrees == -90 * grav_change[grav_change_index]["wall_dir"])):
 			wall_dir = -1
 			$Sprite.scale.x *= -1
 			state = WALL
@@ -172,6 +172,7 @@ func jump_state():
 
 func wall_state():
 	anitree.travel("wallslide")
+	velocity[grav_change[grav_change_index]["index"] + 1] = 0.2 * jumpforce * (gravity_vector[grav_change[grav_change_index]["index"] + 1])
 	#checks first to see if the player has already jumped in that direction
 	if last_wall_dir != $Sprite.scale.x:
 		if Input.is_action_just_pressed("ui_right") and ($Sprite.scale.x * grav_change[grav_change_index]["wall_dir"]) > 0 and not(Input.is_action_pressed("ui_left")):
