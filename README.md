@@ -27,9 +27,9 @@ spacebar = punch
 
 shift = dash
 
-up against wall = wall slide
+left or right against wall = wall slide
 
-left or right on wall = wall jump
+left or right away from wall = wall jump
 
 NEXT STEPS:
 
