@@ -186,7 +186,10 @@ func wall_state():
 			wall_dir = 1
 			last_wall_dir = $Sprite.scale.x
 			state = JUMP
-			
+	else:
+		if Input.is_action_just_pressed("ui_right") or Input.is_action_just_pressed("ui_left"):
+			wall_dir = 1
+			state = MOVE
 	
 	if not($wallchecker.is_colliding()):
 		wall_dir = 1
