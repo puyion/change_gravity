@@ -11,7 +11,7 @@ NOTES:
 
 -created a enum state function for code which fixed the animation issue and added some bonus controls
 
--had to change the code for punching where it detects when the animation stops otherwise you could spam it and travel at lightspeed
+-wall jump added, only works in one direction
 
 CONTROLS:
 
@@ -27,18 +27,17 @@ spacebar = punch
 
 shift = dash
 
+left or right on wall = wall jump
+
 NEXT STEPS:
 
 -change way gravity changes
 
 -create levels
 
--possible wall jump
+-add wall jump in all directions
 
 -possible slide
 
 -possible planets with own gravity
 
-ISSUE (fixed):
-
--so there's this weird bug where the punch animation won't play unless my computer is plugged in so gotta rewrite the script (adding states)
