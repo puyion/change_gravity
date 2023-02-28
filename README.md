@@ -28,3 +28,7 @@ NEXT STEPS:
 -possible wall jump
 
 -possible planets with own gravity
+
+ISSUE:
+
+-so there's this weird bug where the punch animation won't play unless my computer is plugged in so gotta rewrite the script (adding states)
