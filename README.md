@@ -15,6 +15,9 @@ NOTES:
 
 -added character (amateur homemade) sprites and animations for idle, movement, jump, punch
 
+-added parallax background to give "3d effect"
+
+-gave character hitbox for punching
 
 CONTROLS:
 
