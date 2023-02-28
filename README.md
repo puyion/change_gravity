@@ -3,21 +3,11 @@ changing direction of gravity of player in godot 2d
 
 NOTES:
 
--gravity works in all directions
+-created small sample level using a tileset found off google
 
--character rotates depending on direction
+-for the "3d" effect, it's simply the parallax backgrounds layered at different sizes and moving at different relative motions
 
--character is able to jump in all gravity directions
-
--character now moves properly in all directions
-
--gravity code has been optimized into dictionary
-
--added character (amateur homemade) sprites and animations for idle, movement, jump, punch
-
--added parallax background to give "3d effect"
-
--gave character hitbox for punching
+-the main tilemap is for the actual collisions but it is hidden because the parallax backgrounds are always at the back of every object
 
 CONTROLS:
 
@@ -26,6 +16,8 @@ arrow keys (left, right, up = jump)
 wasd keys (change gravity in direction of key)
 
 space bar (punch)
+
+shift (dash)
 
 NEXT STEPS:
 
