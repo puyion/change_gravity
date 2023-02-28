@@ -23,28 +23,32 @@ var grav_change = {"left":{"gravity_dir": Vector2(-1,0), #direction of gravity
 							"speed_dir": 1, #change left and right
 							"input": "grav_left", #button input
 							"sprite_dir": Vector2(-0.5,0.5), #sprite direction
-							"punch_dir": 1
+							"punch_dir": 1,
+							"wall_dir": 1
 							},
 					"right":{"gravity_dir": Vector2(1,0),
 							"index": -1,
 							"speed_dir": -1,
 							"input": "grav_right",
 							"sprite_dir": Vector2(-0.5,0.5),
-							"punch_dir": -1
+							"punch_dir": -1,
+							"wall_dir": 1
 							},
 					"up":{"gravity_dir": Vector2(0,-1),
 							"index": 0,
 							"speed_dir": 1,
 							"input": "grav_up",
 							"sprite_dir": Vector2(0.5,-0.5),
-							"punch_dir": -1
+							"punch_dir": -1,
+							"wall_dir": -1
 							},
 					"down":{"gravity_dir": Vector2(0,1),
 							"index": 0,
 							"speed_dir": 1,
 							"input": "grav_down",
 							"sprite_dir": Vector2(-0.5,0.5),
-							"punch_dir": 1
+							"punch_dir": 1,
+							"wall_dir": 1
 							}
 					}
 
@@ -80,8 +84,8 @@ func _physics_process(_delta):
 	
 	#rotate character based on direction of gravity
 	self.rotation_degrees = rad2deg(gravity_vector.angle()) - 90
-	$wallchecker.rotation_degrees = rad2deg(gravity_vector.angle()) * -$Sprite.scale.x * 2 * wall_dir
-	
+	$wallchecker.rotation_degrees = 90 * -$Sprite.scale.x * 2 * wall_dir
+
 	#change gravity based on wasd keys
 	for i in grav_change:
 		if Input.is_action_pressed(grav_change[i]["input"]):
@@ -100,34 +104,6 @@ func _physics_process(_delta):
 			wall_state()
 	
 	
-func wall_state():
-	anitree.travel("wallslide")
-	if last_wall_dir != $Sprite.scale.x:
-		if Input.is_action_just_pressed("ui_right") and $Sprite.scale.x > 0 and not(Input.is_action_pressed("ui_left")):
-			velocity[grav_change[grav_change_index]["index"]] = wall_jump_speed
-			wall_dir = 1
-			last_wall_dir = $Sprite.scale.x
-			#yield(get_tree().create_timer(0.03), "timeout")
-			state = JUMP
-		
-		if Input.is_action_just_pressed("ui_left") and $Sprite.scale.x < 0 and not(Input.is_action_pressed("ui_right")):
-			velocity[grav_change[grav_change_index]["index"]] = wall_jump_speed
-			wall_dir = 1
-			last_wall_dir = $Sprite.scale.x
-			#yield(get_tree().create_timer(0.03), "timeout")
-			state = JUMP
-			
-	
-	if not($wallchecker.is_colliding()):
-		wall_dir = 1
-		anitree.travel("jump")
-		state = MOVE
-	
-	if (gravity_vector.x == 0 and is_on_floor()) or (gravity_vector.y == 0 and is_on_wall()):
-		last_wall_dir = 0
-		wall_dir = 1
-		state = MOVE
-
 func move_state():
 	
 	#basic movement commands
@@ -150,20 +126,19 @@ func move_state():
 		speed = 450
 	else:
 		speed = lerp(speed, 300, 0.2)
-	
+		
+	#on ground (for changes during move state)
+	if (gravity_vector.x == 0 and is_on_floor()) or (gravity_vector.y == 0 and is_on_wall()):
+		last_wall_dir = 0
+		
 	#in air
 	if (gravity_vector.x == 0 and not(is_on_floor())) or (gravity_vector.y == 0 and not(is_on_wall())):
 		anitree.travel("jump")
-	
-	#on ground
-	if (gravity_vector.x == 0 and is_on_floor()) or (gravity_vector.y == 0 and is_on_wall()):
-		last_wall_dir = 0
-	
-	#switching to wallslide
-	if not(is_on_floor()) and $wallchecker.is_colliding():
-		wall_dir = -1
-		$Sprite.scale.x *= -1
-		state = WALL
+		#switching to wall
+		if $wallchecker.is_colliding():
+			wall_dir = -1
+			$Sprite.scale.x *= -1
+			state = WALL
 	
 	#switching to jump
 	if Input.is_action_just_pressed("ui_up") and ((gravity_vector.x == 0 and is_on_floor()) or (gravity_vector.y == 0 and is_on_wall())):
@@ -194,8 +169,34 @@ func jump_state():
 	if Input.is_action_just_pressed("punch"):
 		state = PUNCH
 	state = MOVE
+
+func wall_state():
+	anitree.travel("wallslide")
+	#checks first to see if the player has already jumped in that direction
+	if last_wall_dir != $Sprite.scale.x:
+		if Input.is_action_just_pressed("ui_right") and ($Sprite.scale.x * grav_change[grav_change_index]["wall_dir"]) > 0 and not(Input.is_action_pressed("ui_left")):
+			velocity[grav_change[grav_change_index]["index"]] = wall_jump_speed
+			wall_dir = 1
+			last_wall_dir = $Sprite.scale.x
+			state = JUMP
+		
+		if Input.is_action_just_pressed("ui_left") and ($Sprite.scale.x * grav_change[grav_change_index]["wall_dir"]) < 0 and not(Input.is_action_pressed("ui_right")):
+			velocity[grav_change[grav_change_index]["index"]] = wall_jump_speed
+			wall_dir = 1
+			last_wall_dir = $Sprite.scale.x
+			state = JUMP
+			
 	
+	if not($wallchecker.is_colliding()):
+		wall_dir = 1
+		anitree.travel("jump")
+		state = MOVE
 	
+	if (gravity_vector.x == 0 and is_on_floor()) or (gravity_vector.y == 0 and is_on_wall()):
+		last_wall_dir = 0
+		wall_dir = 1
+		state = MOVE	
+
 func _on_punchhit_area_entered(area):
 	print("hit")
 
