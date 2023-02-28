@@ -77,8 +77,8 @@ func _physics_process(_delta):
 	#change gravity based on wasd keys
 	for i in grav_change:
 		if Input.is_action_pressed(grav_change[i]["input"]):
-			gravity_vector = grav_change[i]["gravity_dir"]
 			grav_change_index = i
+			gravity_vector = grav_change[i]["gravity_dir"]
 			velocity = Vector2.ZERO
 			
 	match state:
@@ -88,8 +88,8 @@ func _physics_process(_delta):
 			punch_state()
 		JUMP:
 			jump_state()
-	
 		
+
 
 func move_state():
 	#basic movement commands
@@ -116,7 +116,8 @@ func move_state():
 	#in air
 	if (gravity_vector.x == 0 and not(is_on_floor())) or (gravity_vector.y == 0 and not(is_on_wall())):
 		anitree.travel("jump")
-		
+	
+	
 	#switching to jump
 	if Input.is_action_just_pressed("ui_up") and ((gravity_vector.x == 0 and is_on_floor()) or (gravity_vector.y == 0 and is_on_wall())):
 		state = JUMP
@@ -125,8 +126,6 @@ func move_state():
 	if Input.is_action_just_pressed("punch") and anitree.get_current_node() != "punch":
 		state = PUNCH
 		
-		
-	
 	
 func punch_state():
 	anitree.travel("punch")
@@ -147,6 +146,7 @@ func jump_state():
 	if Input.is_action_just_pressed("punch"):
 		state = PUNCH
 	state = MOVE
+	
 	
 func _on_punchhit_area_entered(area):
 	print("hit")
