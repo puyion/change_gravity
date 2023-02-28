@@ -434,8 +434,8 @@ points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
 motion_scale = Vector2( 0.01, 0.01 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer6"]
-position = Vector2( 100, 30 )
-scale = Vector2( 4, 4 )
+position = Vector2( 150, 15 )
+scale = Vector2( 5, 5 )
 texture = ExtResource( 14 )
 script = ExtResource( 15 )
 

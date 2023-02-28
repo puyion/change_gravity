@@ -63,7 +63,6 @@ func _ready():
 
 
 func _physics_process(_delta):
-	print(anitree.get_current_node())
 	#velocity in both directions constantly changing
 	velocity.x += gravity_magnitude * gravity_vector.x
 	velocity.y += gravity_magnitude * gravity_vector.y
@@ -123,21 +122,23 @@ func move_state():
 		state = JUMP
 		
 	#switching to punch
-	if Input.is_action_just_pressed("punch"):
+	if Input.is_action_just_pressed("punch") and anitree.get_current_node() != "punch":
 		state = PUNCH
+		
 		
 	
 	
 func punch_state():
 	anitree.travel("punch")
-	if Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right"):
+	
+	if (Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right")):
 		velocity[grav_change[grav_change_index]["index"]] = punch_speed * 2 * $Sprite.scale.x * grav_change[grav_change_index]["punch_dir"]
+		state = MOVE
 	else:
 		velocity[grav_change[grav_change_index]["index"]] = 0
-		
-	if anitree.get_current_node() != "punch":
 		state = MOVE
-
+		
+		
 func jump_state():
 	#the jump will be in the opposite of gravity direction
 	velocity[grav_change[grav_change_index]["index"] + 1] = jumpforce * (-gravity_vector[grav_change[grav_change_index]["index"] + 1])	
