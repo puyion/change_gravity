@@ -9,15 +9,21 @@ NOTES:
 
 -the main tilemap is for the actual collisions but it is hidden because the parallax backgrounds are always at the back of every object
 
+-created a enum state function for code which fixed the animation issue and added some bonus controls
+
 CONTROLS:
 
-arrow keys (left, right, up = jump)
+left, right = move
 
-wasd keys (change gravity in direction of key)
+up = jump
 
-space bar (punch)
+wasd keys = change gravity in direction of key
 
-shift (dash)
+spacebar = punch
+
+(left or right) + spacebar = punch dash
+
+shift = dash
 
 NEXT STEPS:
 
@@ -27,8 +33,10 @@ NEXT STEPS:
 
 -possible wall jump
 
+-possible slide
+
 -possible planets with own gravity
 
-ISSUE:
+ISSUE (fixed):
 
 -so there's this weird bug where the punch animation won't play unless my computer is plugged in so gotta rewrite the script (adding states)
