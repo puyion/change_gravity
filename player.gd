@@ -5,11 +5,14 @@ var gravity_vector = Vector2(0, 1)
 var gravity_magnitude = 20
 
 
-#player's speed, jump, movement, punch speed
+#player's speed, jump, movement, punch speed, speed off wall jump
 var speed = 300
 var jumpforce = 600
 var velocity = Vector2(0,0)
 var punch_speed = 3000
+var wall_jump_speed = 2000
+
+
 
 #directional index
 var index = 0
@@ -53,10 +56,14 @@ var anitree
 enum{
 	MOVE,
 	PUNCH,
-	JUMP
+	JUMP,
+	WALL
 }
 
 var state = MOVE
+
+var wall_dir = 1
+var last_wall_dir = 0
 
 func _ready():
 	anitree = $AnimationTree.get("parameters/playback")
@@ -73,6 +80,7 @@ func _physics_process(_delta):
 	
 	#rotate character based on direction of gravity
 	self.rotation_degrees = rad2deg(gravity_vector.angle()) - 90
+	$wallchecker.rotation_degrees = rad2deg(gravity_vector.angle()) * -$Sprite.scale.x * 2 * wall_dir
 	
 	#change gravity based on wasd keys
 	for i in grav_change:
@@ -88,10 +96,40 @@ func _physics_process(_delta):
 			punch_state()
 		JUMP:
 			jump_state()
+		WALL:
+			wall_state()
+	
+	
+func wall_state():
+	anitree.travel("wallslide")
+	if last_wall_dir != $Sprite.scale.x:
+		if Input.is_action_just_pressed("ui_right") and $Sprite.scale.x > 0 and not(Input.is_action_pressed("ui_left")):
+			velocity[grav_change[grav_change_index]["index"]] = wall_jump_speed
+			wall_dir = 1
+			last_wall_dir = $Sprite.scale.x
+			#yield(get_tree().create_timer(0.03), "timeout")
+			state = JUMP
 		
-
+		if Input.is_action_just_pressed("ui_left") and $Sprite.scale.x < 0 and not(Input.is_action_pressed("ui_right")):
+			velocity[grav_change[grav_change_index]["index"]] = wall_jump_speed
+			wall_dir = 1
+			last_wall_dir = $Sprite.scale.x
+			#yield(get_tree().create_timer(0.03), "timeout")
+			state = JUMP
+			
+	
+	if not($wallchecker.is_colliding()):
+		wall_dir = 1
+		anitree.travel("jump")
+		state = MOVE
+	
+	if (gravity_vector.x == 0 and is_on_floor()) or (gravity_vector.y == 0 and is_on_wall()):
+		last_wall_dir = 0
+		wall_dir = 1
+		state = MOVE
 
 func move_state():
+	
 	#basic movement commands
 	#checking if the character isn't punching because punch and walk speeds are different
 	if Input.is_action_pressed("ui_left") and anitree.get_current_node() != "punch":
@@ -117,6 +155,15 @@ func move_state():
 	if (gravity_vector.x == 0 and not(is_on_floor())) or (gravity_vector.y == 0 and not(is_on_wall())):
 		anitree.travel("jump")
 	
+	#on ground
+	if (gravity_vector.x == 0 and is_on_floor()) or (gravity_vector.y == 0 and is_on_wall()):
+		last_wall_dir = 0
+	
+	#switching to wallslide
+	if not(is_on_floor()) and $wallchecker.is_colliding():
+		wall_dir = -1
+		$Sprite.scale.x *= -1
+		state = WALL
 	
 	#switching to jump
 	if Input.is_action_just_pressed("ui_up") and ((gravity_vector.x == 0 and is_on_floor()) or (gravity_vector.y == 0 and is_on_wall())):
@@ -139,6 +186,7 @@ func punch_state():
 		
 		
 func jump_state():
+	anitree.travel("jump")
 	#the jump will be in the opposite of gravity direction
 	velocity[grav_change[grav_change_index]["index"] + 1] = jumpforce * (-gravity_vector[grav_change[grav_change_index]["index"] + 1])	
 	
