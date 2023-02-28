@@ -11,7 +11,7 @@ NOTES:
 
 -created a enum state function for code which fixed the animation issue and added some bonus controls
 
--wall jump added, only works in one direction
+-wall jump added in all directions
 
 CONTROLS:
 
@@ -27,6 +27,8 @@ spacebar = punch
 
 shift = dash
 
+up against wall = wall slide
+
 left or right on wall = wall jump
 
 NEXT STEPS:
@@ -34,8 +36,6 @@ NEXT STEPS:
 -change way gravity changes
 
 -create levels
-
--add wall jump in all directions
 
 -possible slide
 
