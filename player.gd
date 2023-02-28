@@ -18,25 +18,29 @@ var grav_change = {"left":{"gravity_dir": Vector2(-1,0), #direction of gravity
 							"index": -1, #for x and y switch (= abs(gravity vector.y) - 1)
 							"speed_dir": 1, #change left and right
 							"input": "grav_left", #button input
-							"sprite_dir": Vector2(-0.5,0.5) #sprite direction
+							"sprite_dir": Vector2(-0.5,0.5), #sprite direction
+							"punch_dir": 1
 							},
 					"right":{"gravity_dir": Vector2(1,0),
 							"index": -1,
 							"speed_dir": -1,
 							"input": "grav_right",
-							"sprite_dir": Vector2(-0.5,0.5)
+							"sprite_dir": Vector2(-0.5,0.5),
+							"punch_dir": -1
 							},
 					"up":{"gravity_dir": Vector2(0,-1),
 							"index": 0,
 							"speed_dir": 1,
 							"input": "grav_up",
-							"sprite_dir": Vector2(0.5,-0.5)
+							"sprite_dir": Vector2(0.5,-0.5),
+							"punch_dir": -1
 							},
 					"down":{"gravity_dir": Vector2(0,1),
 							"index": 0,
 							"speed_dir": 1,
 							"input": "grav_down",
-							"sprite_dir": Vector2(-0.5,0.5)
+							"sprite_dir": Vector2(-0.5,0.5),
+							"punch_dir": 1
 							}
 					}
 
@@ -50,6 +54,7 @@ func _ready():
 
 
 func _physics_process(_delta):
+	print(anitree.get_current_node())
 	#velocity in both directions constantly changing
 	velocity.x += gravity_magnitude * gravity_vector.x
 	velocity.y += gravity_magnitude * gravity_vector.y
@@ -69,6 +74,12 @@ func _physics_process(_delta):
 		
 	else:
 		anitree.travel("idle")
+		
+	if Input.is_action_pressed("shift") and ((gravity_vector.x == 0 and is_on_floor()) or (gravity_vector.y == 0 and is_on_wall())):
+		speed = 450
+	else:
+		speed = lerp(speed, 300, 0.2)
+	
 	
 	if Input.is_action_just_pressed("ui_up") and ((gravity_vector.x == 0 and is_on_floor()) or (gravity_vector.y == 0 and is_on_wall())):
 		#the jump will be in the opposite of gravity direction
@@ -79,17 +90,9 @@ func _physics_process(_delta):
 	
 	if Input.is_action_just_pressed("punch"):
 		anitree.travel("punch")
-		speed = 800
-		
-		
-	if Input.is_action_pressed("shift") and ((gravity_vector.x == 0 and is_on_floor()) or (gravity_vector.y == 0 and is_on_wall())):
-		speed = 450
-	else:
-		speed = lerp(speed, 300, 0.2)
-	
-#	if Input.is_action_just_pressed("punch"):
-#		anitree.travel("punchup")
-	
+		velocity[grav_change[grav_change_index]["index"]] = 1600 * 2 * $Sprite.scale.x * grav_change[grav_change_index]["punch_dir"]
+
+
 	#basic movement 
 	velocity = move_and_slide(velocity, Vector2(-1 * gravity_vector[grav_change[grav_change_index]["index"]], -1 * gravity_vector[grav_change[grav_change_index]["index"] + 1]))
 	velocity[grav_change[grav_change_index]["index"]] = lerp(velocity[grav_change[grav_change_index]["index"]], 0, 0.2)

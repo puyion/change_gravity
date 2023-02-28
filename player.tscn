@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://playerspritefile.png" type="Texture" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -340,6 +340,8 @@ auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=43]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=45]
+
 [sub_resource type="AnimationNodeStateMachine" id=41]
 states/hurt/node = SubResource( 11 )
 states/hurt/position = Vector2( 165, -237 )
@@ -348,7 +350,7 @@ states/idle/position = Vector2( -81, 33 )
 states/jump/node = SubResource( 13 )
 states/jump/position = Vector2( 148, 316 )
 states/punch/node = SubResource( 14 )
-states/punch/position = Vector2( 253, 117 )
+states/punch/position = Vector2( 222, 157 )
 states/punchup/node = SubResource( 15 )
 states/punchup/position = Vector2( 253, -40 )
 states/slide/node = SubResource( 16 )
@@ -357,9 +359,9 @@ states/walk/node = SubResource( 17 )
 states/walk/position = Vector2( 453, 35 )
 states/wallslide/node = SubResource( 18 )
 states/wallslide/position = Vector2( -423, 38 )
-transitions = [ "idle", "walk", SubResource( 19 ), "idle", "punch", SubResource( 20 ), "punch", "idle", SubResource( 21 ), "walk", "idle", SubResource( 22 ), "walk", "punch", SubResource( 23 ), "punchup", "idle", SubResource( 24 ), "idle", "punchup", SubResource( 25 ), "walk", "punchup", SubResource( 26 ), "jump", "idle", SubResource( 27 ), "idle", "jump", SubResource( 28 ), "walk", "jump", SubResource( 29 ), "walk", "slide", SubResource( 30 ), "slide", "walk", SubResource( 31 ), "jump", "wallslide", SubResource( 32 ), "wallslide", "jump", SubResource( 33 ), "wallslide", "idle", SubResource( 34 ), "idle", "hurt", SubResource( 35 ), "hurt", "idle", SubResource( 36 ), "walk", "hurt", SubResource( 37 ), "slide", "hurt", SubResource( 38 ), "wallslide", "hurt", SubResource( 39 ), "jump", "hurt", SubResource( 40 ), "slide", "idle", SubResource( 43 ) ]
+transitions = [ "idle", "walk", SubResource( 19 ), "idle", "punch", SubResource( 20 ), "punch", "idle", SubResource( 21 ), "walk", "idle", SubResource( 22 ), "walk", "punch", SubResource( 23 ), "punchup", "idle", SubResource( 24 ), "idle", "punchup", SubResource( 25 ), "walk", "punchup", SubResource( 26 ), "jump", "idle", SubResource( 27 ), "idle", "jump", SubResource( 28 ), "walk", "jump", SubResource( 29 ), "walk", "slide", SubResource( 30 ), "slide", "walk", SubResource( 31 ), "jump", "wallslide", SubResource( 32 ), "wallslide", "jump", SubResource( 33 ), "wallslide", "idle", SubResource( 34 ), "idle", "hurt", SubResource( 35 ), "hurt", "idle", SubResource( 36 ), "walk", "hurt", SubResource( 37 ), "slide", "hurt", SubResource( 38 ), "wallslide", "hurt", SubResource( 39 ), "jump", "hurt", SubResource( 40 ), "slide", "idle", SubResource( 43 ), "jump", "punch", SubResource( 45 ) ]
 start_node = "idle"
-graph_offset = Vector2( -506, -181.28 )
+graph_offset = Vector2( -472, -29.28 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=42]
 
