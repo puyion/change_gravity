@@ -11,6 +11,8 @@ NOTES:
 
 -created a enum state function for code which fixed the animation issue and added some bonus controls
 
+-had to change the code for punching where it detects when the animation stops otherwise you could spam it and travel at lightspeed
+
 CONTROLS:
 
 left, right = move
