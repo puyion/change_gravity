@@ -1,10 +1,14 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://playerspritefile.png" type="Texture" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
+[ext_resource path="res://hitbox.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 36, 40 )
+
+[sub_resource type="CircleShape2D" id=44]
+radius = 32.9848
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -19,6 +23,42 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite/punchhit/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite/punchhit/CollisionShape2D:shape:radius")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 32.9848 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite/punchhit/CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 88, -8 ) ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -87,6 +127,42 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 9, 10, 11 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite/punchhit/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite/punchhit/CollisionShape2D:shape:radius")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 32.9848 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite/punchhit/CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 88, -8 ) ]
+}
 
 [sub_resource type="Animation" id=8]
 resource_name = "punchup"
@@ -102,6 +178,42 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ 17, 18, 19 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite/punchhit/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite/punchhit/CollisionShape2D:shape:radius")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 32.9848 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite/punchhit/CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 8, -88 ) ]
 }
 
 [sub_resource type="Animation" id=9]
@@ -264,6 +376,15 @@ scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
 hframes = 20
 
+[node name="punchhit" parent="Sprite" instance=ExtResource( 3 )]
+position = Vector2( 12, 70 )
+scale = Vector2( 2, 2 )
+
+[node name="CollisionShape2D" parent="Sprite/punchhit" index="0"]
+position = Vector2( 88, -8 )
+shape = SubResource( 44 )
+disabled = true
+
 [node name="animation" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 2 )
 anims/hurt = SubResource( 5 )
@@ -280,3 +401,7 @@ tree_root = SubResource( 41 )
 anim_player = NodePath("../animation")
 active = true
 parameters/playback = SubResource( 42 )
+
+[connection signal="area_entered" from="Sprite/punchhit" to="." method="_on_punchhit_area_entered"]
+
+[editable path="Sprite/punchhit"]

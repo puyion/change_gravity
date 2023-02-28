@@ -13,30 +13,30 @@ var velocity = Vector2(0,0)
 #directional index
 var index = 0
 
-
+#cardinal direction gravity
 var grav_change = {"left":{"gravity_dir": Vector2(-1,0), #direction of gravity
 							"index": -1, #for x and y switch (= abs(gravity vector.y) - 1)
 							"speed_dir": 1, #change left and right
 							"input": "grav_left", #button input
-							"sprite_dir": Vector2(1,0) #sprite direction
+							"sprite_dir": Vector2(-0.5,0.5) #sprite direction
 							},
 					"right":{"gravity_dir": Vector2(1,0),
 							"index": -1,
 							"speed_dir": -1,
 							"input": "grav_right",
-							"sprite_dir": Vector2(1,0)
+							"sprite_dir": Vector2(-0.5,0.5)
 							},
 					"up":{"gravity_dir": Vector2(0,-1),
 							"index": 0,
 							"speed_dir": 1,
 							"input": "grav_up",
-							"sprite_dir": Vector2(0,1)
+							"sprite_dir": Vector2(0.5,-0.5)
 							},
 					"down":{"gravity_dir": Vector2(0,1),
 							"index": 0,
 							"speed_dir": 1,
 							"input": "grav_down",
-							"sprite_dir": Vector2(1,0)
+							"sprite_dir": Vector2(-0.5,0.5)
 							}
 					}
 
@@ -59,12 +59,13 @@ func _physics_process(_delta):
 	if Input.is_action_pressed("ui_left"):
 		velocity[grav_change[grav_change_index]["index"]] = -speed * grav_change[grav_change_index]["speed_dir"]
 		anitree.travel("walk")
-		$Sprite.flip_h = grav_change[grav_change_index]["sprite_dir"][0]
+		$Sprite.scale.x = grav_change[grav_change_index]["sprite_dir"][0]
+		
 
 	elif Input.is_action_pressed("ui_right"):
 		velocity[grav_change[grav_change_index]["index"]] = speed * grav_change[grav_change_index]["speed_dir"]
 		anitree.travel("walk")
-		$Sprite.flip_h = grav_change[grav_change_index]["sprite_dir"][1]
+		$Sprite.scale.x = grav_change[grav_change_index]["sprite_dir"][1]
 		
 	else:
 		anitree.travel("idle")
@@ -78,7 +79,10 @@ func _physics_process(_delta):
 	
 	if Input.is_action_just_pressed("punch"):
 		anitree.travel("punch")
-		
+
+	
+#	if Input.is_action_just_pressed("punch"):
+#		anitree.travel("punchup")
 	
 	#basic movement 
 	velocity = move_and_slide(velocity, Vector2(-1 * gravity_vector[grav_change[grav_change_index]["index"]], -1 * gravity_vector[grav_change[grav_change_index]["index"] + 1]))
@@ -95,5 +99,7 @@ func _physics_process(_delta):
 			velocity = Vector2.ZERO
 	
 
+func _on_punchhit_area_entered(area):
+	print("hit")
 
 
