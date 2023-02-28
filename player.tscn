@@ -359,7 +359,7 @@ states/wallslide/node = SubResource( 18 )
 states/wallslide/position = Vector2( -423, 38 )
 transitions = [ "idle", "walk", SubResource( 19 ), "idle", "punch", SubResource( 20 ), "punch", "idle", SubResource( 21 ), "walk", "idle", SubResource( 22 ), "walk", "punch", SubResource( 23 ), "punchup", "idle", SubResource( 24 ), "idle", "punchup", SubResource( 25 ), "walk", "punchup", SubResource( 26 ), "jump", "idle", SubResource( 27 ), "idle", "jump", SubResource( 28 ), "walk", "jump", SubResource( 29 ), "walk", "slide", SubResource( 30 ), "slide", "walk", SubResource( 31 ), "jump", "wallslide", SubResource( 32 ), "wallslide", "jump", SubResource( 33 ), "wallslide", "idle", SubResource( 34 ), "idle", "hurt", SubResource( 35 ), "hurt", "idle", SubResource( 36 ), "walk", "hurt", SubResource( 37 ), "slide", "hurt", SubResource( 38 ), "wallslide", "hurt", SubResource( 39 ), "jump", "hurt", SubResource( 40 ), "slide", "idle", SubResource( 43 ) ]
 start_node = "idle"
-graph_offset = Vector2( -452, -45.28 )
+graph_offset = Vector2( -506, -181.28 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=42]
 

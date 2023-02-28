@@ -79,7 +79,13 @@ func _physics_process(_delta):
 	
 	if Input.is_action_just_pressed("punch"):
 		anitree.travel("punch")
-
+		speed = 800
+		
+		
+	if Input.is_action_pressed("shift") and ((gravity_vector.x == 0 and is_on_floor()) or (gravity_vector.y == 0 and is_on_wall())):
+		speed = 450
+	else:
+		speed = lerp(speed, 300, 0.2)
 	
 #	if Input.is_action_just_pressed("punch"):
 #		anitree.travel("punchup")
