@@ -110,8 +110,6 @@ func _physics_process(_delta):
 			wall_state()
 			
 
-	
-	
 func move_state():
 	
 	#basic movement commands
@@ -207,9 +205,7 @@ func wall_state():
 	if (gravity_vector.x == 0 and is_on_floor()) or (gravity_vector.y == 0 and is_on_wall()):
 		last_wall_dir = 0
 		wall_dir = 1
-		state = MOVE	
+		state = MOVE
 
-func _on_punchhit_area_entered(area):
-	pass
 
 

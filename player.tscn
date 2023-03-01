@@ -414,6 +414,7 @@ anim_player = NodePath("../animation")
 active = true
 parameters/playback = SubResource( 42 )
 
-[connection signal="area_entered" from="Sprite/punchhit" to="." method="_on_punchhit_area_entered"]
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
 
 [editable path="Sprite/punchhit"]
