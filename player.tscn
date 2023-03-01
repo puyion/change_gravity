@@ -390,6 +390,7 @@ hframes = 20
 [node name="punchhit" parent="Sprite" instance=ExtResource( 3 )]
 position = Vector2( 12, 70 )
 scale = Vector2( 2, 2 )
+collision_mask = 5
 
 [node name="CollisionShape2D" parent="Sprite/punchhit" index="0"]
 position = Vector2( 88, -8 )

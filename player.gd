@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 #vector indicates direction, magnitude indicates strength
-var gravity_vector = Vector2(0, 1)
+var gravity_vector = Vector2()
 var gravity_magnitude = 20
 
 
@@ -53,7 +53,7 @@ var grav_change = {"left":{"gravity_dir": Vector2(-1,0), #direction of gravity
 					}
 
 #index calls grav_change dictionary
-var grav_change_index = "down"
+var grav_change_index
 
 var anitree
 
@@ -74,6 +74,8 @@ func _ready():
 
 
 func _physics_process(_delta):
+	grav_change_index = GlobalScript.grav_index
+	
 	#velocity in both directions constantly changing
 	velocity.x += gravity_magnitude * gravity_vector.x
 	velocity.y += gravity_magnitude * gravity_vector.y
@@ -87,12 +89,16 @@ func _physics_process(_delta):
 	$wallchecker.rotation_degrees = 90 * -$Sprite.scale.x * 2 * wall_dir
 
 	#change gravity based on wasd keys
-	for i in grav_change:
-		if Input.is_action_pressed(grav_change[i]["input"]):
-			grav_change_index = i
-			gravity_vector = grav_change[i]["gravity_dir"]
-			velocity = Vector2.ZERO
+#	for i in grav_change:
+#		if Input.is_action_pressed(grav_change[i]["input"]):
+#			grav_change_index = i
+#			gravity_vector = grav_change[i]["gravity_dir"]
+#			velocity = Vector2.ZERO
 			
+	for i in grav_change:
+		if i == grav_change_index:
+			gravity_vector = grav_change[i]["gravity_dir"]
+	
 	match state:
 		MOVE:
 			move_state()
@@ -102,6 +108,8 @@ func _physics_process(_delta):
 			jump_state()
 		WALL:
 			wall_state()
+			
+
 	
 	
 func move_state():
@@ -202,6 +210,6 @@ func wall_state():
 		state = MOVE	
 
 func _on_punchhit_area_entered(area):
-	print("hit")
+	pass
 
 
