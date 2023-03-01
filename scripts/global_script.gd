@@ -8,5 +8,8 @@ var grav_dict = {"90": "left",
 				"180": "up",
 				"0": "down"}
 
+var gamemode
+var level
+
 
 
