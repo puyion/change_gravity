@@ -73,7 +73,7 @@ func _ready():
 
 
 func _physics_process(_delta):
-	grav_change_index = GlobalScript.grav_index
+	grav_change_index = GlobalScript.player_grav_index
 	
 	#velocity in both directions constantly changing
 	velocity.x += gravity_magnitude * gravity_vector.x
