@@ -13,13 +13,13 @@ NOTES:
 
 -wall jump added in all directions
 
+-added orbs that change gravity if you punch them
+
 CONTROLS:
 
 left, right = move
 
 up = jump
-
-wasd keys = change gravity in direction of key
 
 spacebar = punch
 
@@ -32,8 +32,6 @@ left or right against wall = wall slide
 left or right away from wall = wall jump
 
 NEXT STEPS:
-
--change way gravity changes
 
 -create levels
 
