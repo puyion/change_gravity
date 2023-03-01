@@ -1005,7 +1005,8 @@ points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
 
 [node name="main" type="TileMap" parent="."]
 tile_set = SubResource( 14 )
-collision_layer = 2
+collision_layer = 4
+collision_mask = 35
 format = 1
 
 [node name="tilesetbackground" type="ParallaxBackground" parent="."]

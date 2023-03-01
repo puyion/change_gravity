@@ -167,7 +167,8 @@ active = true
 parameters/playback = SubResource( 9 )
 
 [node name="hitbox" parent="." instance=ExtResource( 2 )]
-collision_layer = 4
+collision_layer = 8
+collision_mask = 2
 
 [node name="CollisionShape2D" parent="hitbox" index="0"]
 shape = SubResource( 10 )

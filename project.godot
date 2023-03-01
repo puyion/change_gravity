@@ -70,11 +70,12 @@ shift={
 [layer_names]
 
 2d_physics/layer_1="player"
-2d_physics/layer_2="walls"
-2d_physics/layer_3="gravity_orb"
-2d_physics/layer_4="spikes"
-2d_physics/layer_5="enemy"
-2d_physics/layer_6="door"
+2d_physics/layer_2="player_punch"
+2d_physics/layer_3="walls"
+2d_physics/layer_4="gravity_orb"
+2d_physics/layer_5="spikes"
+2d_physics/layer_6="enemy"
+2d_physics/layer_7="portal"
 
 [physics]
 
