@@ -15,6 +15,8 @@ NOTES:
 
 -added orbs that change gravity if you punch them
 
+-edited the folder to make it more organized and user friendly
+
 CONTROLS:
 
 left, right = move
