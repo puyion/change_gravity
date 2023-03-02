@@ -63,8 +63,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id=5]
 resource_name = "hurt"
-length = 0.4
-loop = true
+length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -72,10 +71,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 15, 16 ]
+"values": [ 15, 16, 15, 16, 15, 16 ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -330,6 +329,8 @@ auto_advance = true
 [sub_resource type="AnimationNodeStateMachineTransition" id=35]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=36]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=37]
 
@@ -362,7 +363,7 @@ states/wallslide/node = SubResource( 18 )
 states/wallslide/position = Vector2( -423, 38 )
 transitions = [ "idle", "walk", SubResource( 19 ), "idle", "punch", SubResource( 20 ), "punch", "idle", SubResource( 21 ), "walk", "idle", SubResource( 22 ), "walk", "punch", SubResource( 23 ), "punchup", "idle", SubResource( 24 ), "idle", "punchup", SubResource( 25 ), "walk", "punchup", SubResource( 26 ), "jump", "idle", SubResource( 27 ), "idle", "jump", SubResource( 28 ), "walk", "jump", SubResource( 29 ), "walk", "slide", SubResource( 30 ), "slide", "walk", SubResource( 31 ), "jump", "wallslide", SubResource( 32 ), "wallslide", "jump", SubResource( 33 ), "wallslide", "idle", SubResource( 34 ), "idle", "hurt", SubResource( 35 ), "hurt", "idle", SubResource( 36 ), "walk", "hurt", SubResource( 37 ), "slide", "hurt", SubResource( 38 ), "wallslide", "hurt", SubResource( 39 ), "jump", "hurt", SubResource( 40 ), "slide", "idle", SubResource( 43 ), "jump", "punch", SubResource( 45 ) ]
 start_node = "idle"
-graph_offset = Vector2( -559, -86.28 )
+graph_offset = Vector2( -499, -262.28 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=42]
 
@@ -395,7 +396,7 @@ hframes = 20
 position = Vector2( 12, 70 )
 scale = Vector2( 2, 2 )
 collision_layer = 2
-collision_mask = 104
+collision_mask = 504
 
 [node name="CollisionShape2D" parent="Sprite/punchhit" index="0"]
 position = Vector2( 88, -8 )
@@ -423,11 +424,13 @@ parameters/playback = SubResource( 42 )
 current = true
 
 [node name="hitbox" parent="." instance=ExtResource( 3 )]
-collision_mask = 116
+collision_mask = 448
 
 [node name="CollisionShape2D" parent="hitbox" index="0"]
 position = Vector2( -3, 3 )
 shape = SubResource( 46 )
+
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
 
 [editable path="Sprite/punchhit"]
 [editable path="hitbox"]

@@ -12,5 +12,6 @@ var grav_dict = {"90": "left",
 var gamemode
 var level
 
-
+var player_coords = Vector2()
+var enemy_coords = Vector2()
 

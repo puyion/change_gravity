@@ -60,13 +60,16 @@ enum{
 	MOVE,
 	PUNCH,
 	JUMP,
-	WALL
+	WALL,
+	HURT
 }
 
 var state = MOVE
 
 var wall_dir = 1
 var last_wall_dir = 0
+
+var health = 5
 
 func _ready():
 	anitree = $AnimationTree.get("parameters/playback")
@@ -107,7 +110,9 @@ func _physics_process(_delta):
 			jump_state()
 		WALL:
 			wall_state()
-			
+		HURT:
+			hurt_state()
+	
 
 func move_state():
 	
@@ -150,7 +155,7 @@ func move_state():
 		state = JUMP
 		
 	#switching to punch
-	if Input.is_action_just_pressed("punch") and anitree.get_current_node() != "punch":
+	if Input.is_action_just_pressed("punch") and anitree.get_current_node() != "punch" and anitree.get_current_node() != "hurt":
 		state = PUNCH
 		
 	
@@ -206,5 +211,34 @@ func wall_state():
 		wall_dir = 1
 		state = MOVE
 
+	
+func _on_hitbox_area_entered(area):
+	if area.collision_layer == 128:
+		health -= 1
+		
+		GlobalScript.player_coords = self.position
+		if GlobalScript.enemy_coords[grav_change[grav_change_index]["index"]] > GlobalScript.player_coords[grav_change[grav_change_index]["index"]]:
+			velocity[grav_change[grav_change_index]["index"]] += 5 * -speed * grav_change[grav_change_index]["speed_dir"]
+		if GlobalScript.enemy_coords[grav_change[grav_change_index]["index"]] < GlobalScript.player_coords[grav_change[grav_change_index]["index"]]:
+			velocity[grav_change[grav_change_index]["index"]] += 5 * speed * grav_change[grav_change_index]["speed_dir"]
+		velocity[grav_change[grav_change_index]["index"] + 1] = 0.7 * jumpforce * (-gravity_vector[grav_change[grav_change_index]["index"] + 1])
+		state = HURT
+		
+func hurt_state():
+	anitree.travel("hurt")
+	
+	Input.action_release("ui_left")
+	Input.action_release("ui_right")
+	Input.action_release("punch")
+	
+	set_modulate(Color(0.3,0.3,0.3,0.3))
+	yield(get_tree().create_timer(0.03), "timeout")
+	set_modulate(Color(1,1,1,1))
+	yield(get_tree().create_timer(0.03), "timeout")
+	set_modulate(Color(0.3,0.3,0.3,0.3))
+	yield(get_tree().create_timer(0.03), "timeout")
+	set_modulate(Color(1,1,1,1))
+	
+	state = MOVE
 
 
