@@ -5,7 +5,7 @@
 [ext_resource path="res://scenes/hitbox.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=25]
-extents = Vector2( 78.5, 25 )
+extents = Vector2( 41.5001, 25 )
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 24, 36 )
@@ -198,7 +198,7 @@ collision_layer = 256
 collision_mask = 3
 
 [node name="CollisionShape2D" parent="Sprite/playerdetect" index="0"]
-position = Vector2( 105.5, -8 )
+position = Vector2( 68.5001, -8 )
 shape = SubResource( 25 )
 
 [node name="wallchecker" type="RayCast2D" parent="Sprite"]
@@ -208,6 +208,7 @@ enabled = true
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 0, -4 )
 shape = SubResource( 1 )
 

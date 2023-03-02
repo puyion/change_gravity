@@ -7,8 +7,9 @@
 [sub_resource type="RectangleShape2D" id=47]
 extents = Vector2( 34.5, 38.5 )
 
-[sub_resource type="CircleShape2D" id=44]
+[sub_resource type="CapsuleShape2D" id=48]
 radius = 32.9848
+height = 64.0
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -59,6 +60,18 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 88, -8 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("hitbox/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -138,6 +151,18 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ true, false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("hitbox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -351,6 +376,7 @@ height = 12.0
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( -5.5, 4.5 )
 shape = SubResource( 47 )
 
@@ -376,7 +402,8 @@ collision_mask = 504
 
 [node name="CollisionShape2D" parent="Sprite/punchhit" index="0"]
 position = Vector2( 88, -8 )
-shape = SubResource( 44 )
+rotation = 1.5708
+shape = SubResource( 48 )
 disabled = true
 
 [node name="animation" type="AnimationPlayer" parent="."]

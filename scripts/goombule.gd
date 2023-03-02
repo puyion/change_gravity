@@ -113,8 +113,6 @@ func dead_state():
 	pass
 
 func _on_hitbox_area_entered(area):
-	if area.collision_layer == 1:
-		pass
 	if area.collision_layer == 2:
 		print("enemy hurt")
 		health -= 1
