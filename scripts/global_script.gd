@@ -1,6 +1,5 @@
 extends Node
 
-
 var player_grav_index = "down"
 var enemy_grav_index = "down"
 
@@ -15,3 +14,4 @@ var level
 var player_coords = Vector2()
 var enemy_coords = Vector2()
 
+var player_health = 5

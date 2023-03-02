@@ -10,22 +10,26 @@ var index = 0
 var grav_change = {"left":{"gravity_dir": Vector2(-1,0), #direction of gravity
 							"index": -1, #for x and y switch (= abs(gravity vector.y) - 1)
 							"speed": 1,
-							"set_dir": 1
+							"set_dir": 1,
+							"hit_dir": -1
 							},
 					"right":{"gravity_dir": Vector2(1,0),
 							"index": -1,
 							"speed": -1,
-							"set_dir": 1
+							"set_dir": 1,
+							"hit_dir": 1
 							},
 					"up":{"gravity_dir": Vector2(0,-1),
 							"index": 0,
 							"speed": -1,
-							"set_dir": -1
+							"set_dir": -1,
+							"hit_dir": -1
 							},
 					"down":{"gravity_dir": Vector2(0,1),
 							"index": 0,
 							"speed": 1,
-							"set_dir": 1
+							"set_dir": 1,
+							"hit_dir": -1
 							}
 					}
 					
@@ -41,13 +45,14 @@ var grav_change_index
 
 var anitree
 var state = IDLE
-
+var health = 1
 
 func _ready():
 	anitree = $AnimationTree.get("parameters/playback")
 
 func _physics_process(delta):
 	grav_change_index = GlobalScript.enemy_grav_index
+	GlobalScript.enemy_coords = self.position
 	
 	#velocity in both directions constantly changing
 	velocity.x += gravity_magnitude * gravity_vector.x
@@ -98,16 +103,27 @@ func attack_state():
 		$Sprite.scale.x *= -1
 	if anitree.get_current_node() == "idle":
 		state = IDLE
+		
 	
 func hurt_state():
-	pass
+	anitree.travel("hurt")
+	state = IDLE
 
 func dead_state():
 	pass
 
 func _on_hitbox_area_entered(area):
 	if area.collision_layer == 1:
-		GlobalScript.enemy_coords = self.position
-
+		pass
+	if area.collision_layer == 2:
+		print("enemy hurt")
+		health -= 1
+		if GlobalScript.enemy_coords[grav_change[grav_change_index]["index"]] > GlobalScript.player_coords[grav_change[grav_change_index]["index"]]:
+			velocity[grav_change[grav_change_index]["index"]] += 8 * -300 * grav_change[grav_change_index]["hit_dir"]
+		if GlobalScript.enemy_coords[grav_change[grav_change_index]["index"]] < GlobalScript.player_coords[grav_change[grav_change_index]["index"]]:
+			velocity[grav_change[grav_change_index]["index"]] += 8 * 300 * grav_change[grav_change_index]["hit_dir"]
+		velocity[grav_change[grav_change_index]["index"] + 1] = 0.7 * 300 * (-gravity_vector[grav_change[grav_change_index]["index"] + 1])
+		state = HURT
+		
 func _on_playerdetect_area_entered(area):
 	state = ATTACK
