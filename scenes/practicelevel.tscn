@@ -576,7 +576,7 @@ collision_layer = 16
 rotation = 3.14159
 
 [node name="goombule" parent="." instance=ExtResource( 17 )]
-position = Vector2( 138, 72 )
+position = Vector2( 974, 77 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -585,9 +585,10 @@ __meta__ = {
 parameters/playback = SubResource( 15 )
 
 [node name="player" parent="." instance=ExtResource( 14 )]
-position = Vector2( -255, 61 )
+position = Vector2( -241, 67 )
 
 [node name="Camera2D" parent="." instance=ExtResource( 19 )]
+position = Vector2( -917, 235 )
 
 [editable path="gravityorb"]
 [editable path="gravityorb/hitbox"]

@@ -11,11 +11,9 @@ NOTES:
 
 -added orbs that change gravity if you punch them
 
+-added enemy that you can't hit but it can hurt you
+
 -added orb that changes gravity of just the enemy
-
--enemy can hurt you and you can punch it
-
--added health bar
 
 CONTROLS:
 
@@ -34,8 +32,6 @@ left or right against wall = wall slide
 left or right away from wall = wall jump
 
 NEXT STEPS:
-
--enemy is currently invincible when attacking, may need to change animation state machine to blend machine
 
 -create levels
 

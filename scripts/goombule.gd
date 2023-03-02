@@ -114,13 +114,16 @@ func dead_state():
 
 func _on_hitbox_area_entered(area):
 	if area.collision_layer == 2:
-		print("enemy hurt")
 		health -= 1
 		if GlobalScript.enemy_coords[grav_change[grav_change_index]["index"]] > GlobalScript.player_coords[grav_change[grav_change_index]["index"]]:
 			velocity[grav_change[grav_change_index]["index"]] += 8 * -300 * grav_change[grav_change_index]["hit_dir"]
 		if GlobalScript.enemy_coords[grav_change[grav_change_index]["index"]] < GlobalScript.player_coords[grav_change[grav_change_index]["index"]]:
 			velocity[grav_change[grav_change_index]["index"]] += 8 * 300 * grav_change[grav_change_index]["hit_dir"]
 		velocity[grav_change[grav_change_index]["index"] + 1] = 0.7 * 300 * (-gravity_vector[grav_change[grav_change_index]["index"] + 1])
+#		if health <= 0:
+#			state = DEAD
+#		else:
+#			state = HURT
 		state = HURT
 		
 func _on_playerdetect_area_entered(area):
