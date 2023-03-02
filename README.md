@@ -9,13 +9,11 @@ NOTES:
 
 -the main tilemap is for the actual collisions but it is hidden because the parallax backgrounds are always at the back of every object
 
--created a enum state function for code which fixed the animation issue and added some bonus controls
-
--wall jump added in all directions
-
 -added orbs that change gravity if you punch them
 
--edited the folder to make it more organized and user friendly
+-added enemy that you can't hit but it can hurt you
+
+-added orb that changes gravity of just the enemy
 
 CONTROLS:
 
