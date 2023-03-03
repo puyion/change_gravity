@@ -69,6 +69,9 @@ var state = MOVE
 var wall_dir = 1
 var last_wall_dir = 0
 
+
+"""come up with a means of respawning the player if they drop off the stage"""
+
 var health = 5
 var potion = 0
 
@@ -118,6 +121,8 @@ func _physics_process(_delta):
 		HURT:
 			hurt_state()
 	
+	if health <= 0:
+		get_tree().reload_current_scene()
 
 func move_state():
 	
@@ -229,6 +234,9 @@ func _on_hitbox_area_entered(area):
 			velocity[grav_change[grav_change_index]["index"]] += 5 * speed * grav_change[grav_change_index]["speed_dir"]
 		velocity[grav_change[grav_change_index]["index"] + 1] = 0.7 * jumpforce * (-gravity_vector[grav_change[grav_change_index]["index"] + 1])
 		state = HURT
+	
+	#spikes
+	"""need to have the player move up and backwards to where facing when hit"""
 	
 	#potion
 	if area.collision_layer == 512:

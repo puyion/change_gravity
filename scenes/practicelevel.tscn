@@ -585,6 +585,9 @@ __meta__ = {
 [node name="AnimationTree" parent="goombule" index="3"]
 parameters/playback = SubResource( 15 )
 
+[node name="goombule2" parent="." instance=ExtResource( 17 )]
+position = Vector2( 875, -892 )
+
 [node name="player" parent="." instance=ExtResource( 14 )]
 position = Vector2( -241, 67 )
 

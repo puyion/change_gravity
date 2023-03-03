@@ -191,6 +191,7 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 1 )
 hframes = 14
 vframes = 3
+frame = 24
 
 [node name="playerdetect" parent="Sprite" instance=ExtResource( 3 )]
 scale = Vector2( 0.333333, 0.333333 )
@@ -205,7 +206,8 @@ shape = SubResource( 25 )
 rotation = -1.5708
 scale = Vector2( 0.4, 0.19 )
 enabled = true
-collision_mask = 4
+collision_mask = 132
+collide_with_areas = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
