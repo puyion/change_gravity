@@ -9,11 +9,13 @@ NOTES:
 
 -the main tilemap is for the actual collisions but it is hidden because the parallax backgrounds are always at the back of every object
 
--added orbs that change gravity if you punch them
+-punching orbs change gravity of player (blue) or enemy (red)
 
--added enemy that you can't hit but it can hurt you
+-enemies can hurt player but can be despawned by punching
 
--added orb that changes gravity of just the enemy
+-added health bar and potions to regenerate health
+
+-player can't die yet
 
 CONTROLS:
 
