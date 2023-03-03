@@ -70,6 +70,7 @@ var wall_dir = 1
 var last_wall_dir = 0
 
 var health = 5
+var potion = 0
 
 func _ready():
 	anitree = $AnimationTree.get("parameters/playback")
@@ -79,6 +80,7 @@ func _physics_process(_delta):
 	grav_change_index = GlobalScript.player_grav_index
 	GlobalScript.player_health = health
 	GlobalScript.player_coords = self.position
+	GlobalScript.potion_count = potion
 	
 	
 	#velocity in both directions constantly changing
@@ -216,6 +218,7 @@ func wall_state():
 
 	
 func _on_hitbox_area_entered(area):
+	#enemy
 	if area.collision_layer == 128:
 		health -= 1
 		
@@ -227,8 +230,12 @@ func _on_hitbox_area_entered(area):
 		velocity[grav_change[grav_change_index]["index"] + 1] = 0.7 * jumpforce * (-gravity_vector[grav_change[grav_change_index]["index"] + 1])
 		state = HURT
 	
+	#potion
 	if area.collision_layer == 512:
-		health = 5
+		potion += 1
+		if potion >= 5:
+			health += 1
+			potion = 0
 	
 func hurt_state():
 	anitree.travel("hurt")

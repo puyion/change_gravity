@@ -582,9 +582,6 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Sprite" parent="goombule" index="0"]
-frame = 0
-
 [node name="AnimationTree" parent="goombule" index="3"]
 parameters/playback = SubResource( 15 )
 
@@ -596,6 +593,18 @@ position = Vector2( -917, 235 )
 
 [node name="potion" parent="." instance=ExtResource( 20 )]
 position = Vector2( 1561, -902 )
+
+[node name="potion2" parent="." instance=ExtResource( 20 )]
+position = Vector2( 44, 68 )
+
+[node name="potion3" parent="." instance=ExtResource( 20 )]
+position = Vector2( 140, 71 )
+
+[node name="potion4" parent="." instance=ExtResource( 20 )]
+position = Vector2( 296, -81 )
+
+[node name="potion5" parent="." instance=ExtResource( 20 )]
+position = Vector2( 640, -391 )
 
 [editable path="gravityorb"]
 [editable path="gravityorb/hitbox"]

@@ -1,14 +1,21 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scripts/interface.gd" type="Script" id=1]
 [ext_resource path="res://assets/items/health_bar.png" type="Texture" id=2]
+[ext_resource path="res://assets/items/potion_bar.png" type="Texture" id=3]
 
 [node name="Camera2D" type="Camera2D"]
 current = true
 script = ExtResource( 1 )
 
 [node name="health" type="Sprite" parent="."]
+position = Vector2( -443, -241 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )
 hframes = 6
 frame = 5
+
+[node name="potion" type="Sprite" parent="."]
+position = Vector2( -401, -224 )
+texture = ExtResource( 3 )
+hframes = 6

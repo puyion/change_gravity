@@ -15,3 +15,4 @@ var player_coords = Vector2()
 var enemy_coords = Vector2()
 
 var player_health = 5
+var potion_count = 0

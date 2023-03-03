@@ -11,6 +11,8 @@ radius = 24.0208
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 2, -2 )
+rotation = 0.436332
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 1 )
 
