@@ -176,7 +176,7 @@ states/walk/node = SubResource( 10 )
 states/walk/position = Vector2( 588, 261 )
 transitions = [ "idle", "attack", SubResource( 11 ), "attack", "idle", SubResource( 12 ), "idle", "walk", SubResource( 13 ), "walk", "idle", SubResource( 14 ), "walk", "attack", SubResource( 15 ), "hurt", "idle", SubResource( 17 ), "idle", "hurt", SubResource( 18 ), "walk", "hurt", SubResource( 19 ), "attack", "hurt", SubResource( 20 ) ]
 start_node = "idle"
-graph_offset = Vector2( -36, -19 )
+graph_offset = Vector2( 44, 9 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=22]
 
@@ -191,6 +191,7 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 1 )
 hframes = 14
 vframes = 3
+frame = 19
 
 [node name="playerdetect" parent="Sprite" instance=ExtResource( 3 )]
 scale = Vector2( 0.333333, 0.333333 )
@@ -233,8 +234,14 @@ collision_mask = 67
 position = Vector2( 0, -8 )
 shape = SubResource( 24 )
 
+[node name="Timer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.5
+one_shot = true
+
 [connection signal="area_entered" from="Sprite/playerdetect" to="." method="_on_playerdetect_area_entered"]
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 
 [editable path="Sprite/playerdetect"]
 [editable path="hitbox"]

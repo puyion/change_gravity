@@ -89,6 +89,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 15, 16, 15, 16, 15, 16 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [sub_resource type="Animation" id=3]
 resource_name = "idle"
@@ -364,7 +376,7 @@ states/wallslide/node = SubResource( 18 )
 states/wallslide/position = Vector2( -423, 38 )
 transitions = [ "idle", "walk", SubResource( 19 ), "idle", "punch", SubResource( 20 ), "punch", "idle", SubResource( 21 ), "walk", "idle", SubResource( 22 ), "walk", "punch", SubResource( 23 ), "punchup", "idle", SubResource( 24 ), "idle", "punchup", SubResource( 25 ), "walk", "punchup", SubResource( 26 ), "jump", "idle", SubResource( 27 ), "idle", "jump", SubResource( 28 ), "walk", "jump", SubResource( 29 ), "walk", "slide", SubResource( 30 ), "slide", "walk", SubResource( 31 ), "jump", "wallslide", SubResource( 32 ), "wallslide", "jump", SubResource( 33 ), "wallslide", "idle", SubResource( 34 ), "idle", "hurt", SubResource( 35 ), "hurt", "idle", SubResource( 36 ), "walk", "hurt", SubResource( 37 ), "slide", "hurt", SubResource( 38 ), "wallslide", "hurt", SubResource( 39 ), "jump", "hurt", SubResource( 40 ), "slide", "idle", SubResource( 43 ), "jump", "punch", SubResource( 45 ) ]
 start_node = "idle"
-graph_offset = Vector2( -499, -262.28 )
+graph_offset = Vector2( -452, -119.28 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=42]
 
