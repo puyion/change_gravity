@@ -101,6 +101,8 @@ func attack_state():
 	velocity[grav_change[grav_change_index]["index"]] = 2 * speed * ($Sprite.scale.x/3) * grav_change[grav_change_index]["speed"]
 	if $Sprite/wallchecker.is_colliding():
 		$Sprite.scale.x *= -1
+	if anitree.get_current_node() == "hurt":
+		state = HURT
 	if anitree.get_current_node() == "idle":
 		state = IDLE
 		

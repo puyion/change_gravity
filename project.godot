@@ -78,6 +78,7 @@ shift={
 2d_physics/layer_7="spikes"
 2d_physics/layer_8="enemy"
 2d_physics/layer_9="enemy_detect"
+2d_physics/layer_10="potion"
 
 [physics]
 

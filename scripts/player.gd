@@ -80,6 +80,7 @@ func _physics_process(_delta):
 	GlobalScript.player_health = health
 	GlobalScript.player_coords = self.position
 	
+	
 	#velocity in both directions constantly changing
 	velocity.x += gravity_magnitude * gravity_vector.x
 	velocity.y += gravity_magnitude * gravity_vector.y
@@ -225,7 +226,10 @@ func _on_hitbox_area_entered(area):
 			velocity[grav_change[grav_change_index]["index"]] += 5 * speed * grav_change[grav_change_index]["speed_dir"]
 		velocity[grav_change[grav_change_index]["index"] + 1] = 0.7 * jumpforce * (-gravity_vector[grav_change[grav_change_index]["index"] + 1])
 		state = HURT
-		
+	
+	if area.collision_layer == 512:
+		health = 5
+	
 func hurt_state():
 	anitree.travel("hurt")
 	
