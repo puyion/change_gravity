@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://assets/tilemap/crystal1.png" type="Texture" id=1]
 [ext_resource path="res://assets/tilemap/crystal2.png" type="Texture" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://assets/orb/enemy_orb.png" type="Texture" id=18]
 [ext_resource path="res://scenes/interface.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/potion.tscn" type="PackedScene" id=20]
+[ext_resource path="res://scenes/fallzone.tscn" type="PackedScene" id=21]
 
 [sub_resource type="TileSet" id=2]
 0/name = "crystal1.png 0"
@@ -609,6 +610,24 @@ position = Vector2( 296, -81 )
 [node name="potion5" parent="." instance=ExtResource( 20 )]
 position = Vector2( 640, -391 )
 
+[node name="fallzone" parent="." instance=ExtResource( 21 )]
+
+[node name="CollisionShape2D" parent="fallzone/Area2D" index="0"]
+position = Vector2( 265, 840 )
+scale = Vector2( 20, 1 )
+
+[node name="CollisionShape2D" parent="fallzone/Area2D2" index="0"]
+position = Vector2( -1666, -219.625 )
+scale = Vector2( 1, 15 )
+
+[node name="CollisionShape2D" parent="fallzone/Area2D3" index="0"]
+position = Vector2( 198.5, -1367.75 )
+scale = Vector2( 20, 1 )
+
+[node name="CollisionShape2D" parent="fallzone/Area2D4" index="0"]
+position = Vector2( 2009.5, -292.5 )
+scale = Vector2( 1, 15 )
+
 [editable path="gravityorb"]
 [editable path="gravityorb/hitbox"]
 [editable path="gravityorb4"]
@@ -622,3 +641,4 @@ position = Vector2( 640, -391 )
 [editable path="goombule"]
 [editable path="goombule/Sprite/playerdetect"]
 [editable path="goombule/hitbox"]
+[editable path="fallzone"]

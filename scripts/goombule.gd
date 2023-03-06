@@ -127,6 +127,9 @@ func _on_hitbox_area_entered(area):
 			velocity[grav_change[grav_change_index]["index"]] += 8 * 300 * grav_change[grav_change_index]["hit_dir"]
 		velocity[grav_change[grav_change_index]["index"] + 1] = 0.7 * 300 * (-gravity_vector[grav_change[grav_change_index]["index"] + 1])
 		state = HURT
+	
+	if area.collision_layer == 1024:
+		queue_free()
 
 		
 func _on_playerdetect_area_entered(area):
@@ -135,3 +138,6 @@ func _on_playerdetect_area_entered(area):
 
 func _on_Timer_timeout():
 	queue_free()
+
+
+

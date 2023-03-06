@@ -8,7 +8,7 @@ func _ready():
 
 
 func _physics_process(delta):
-	$space/Sprite.rotation_degrees += 0.05
+	#$space/Sprite.rotation_degrees += 0.05
 	$planet/Sprite.rotation_degrees += 0.02
 	$planet2/Sprite.rotation_degrees += 0.02
 	$planet3/Sprite.rotation_degrees += 0.1

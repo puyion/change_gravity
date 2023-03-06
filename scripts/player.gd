@@ -71,9 +71,11 @@ var last_wall_dir = 0
 
 
 """come up with a means of respawning the player if they drop off the stage"""
+var last_pos = Vector2()
 
 var health = 5
 var potion = 0
+
 
 func _ready():
 	anitree = $AnimationTree.get("parameters/playback")
@@ -85,11 +87,10 @@ func _physics_process(_delta):
 	GlobalScript.player_coords = self.position
 	GlobalScript.potion_count = potion
 	
-	
 	#velocity in both directions constantly changing
 	velocity.x += gravity_magnitude * gravity_vector.x
 	velocity.y += gravity_magnitude * gravity_vector.y
-	
+
 	#basic movement 
 	velocity = move_and_slide(velocity, Vector2(-1 * gravity_vector[grav_change[grav_change_index]["index"]], -1 * gravity_vector[grav_change[grav_change_index]["index"] + 1]))
 	velocity[grav_change[grav_change_index]["index"]] = lerp(velocity[grav_change[grav_change_index]["index"]], 0, 0.2)
@@ -120,10 +121,15 @@ func _physics_process(_delta):
 			wall_state()
 		HURT:
 			hurt_state()
+			
+	
+	if $floorchecker.is_colliding():
+		last_pos = self.position
 	
 	if health <= 0:
-		get_tree().reload_current_scene()
+		pass
 
+	
 func move_state():
 	
 	#basic movement commands
@@ -154,6 +160,7 @@ func move_state():
 	#in air
 	if (gravity_vector.x == 0 and not(is_on_floor())) or (gravity_vector.y == 0 and not(is_on_wall())):
 		anitree.travel("jump")
+		
 		#switching to wall, checks your going into wall -> so you can still jump against a wall and not be wall sliding
 		if $wallchecker.is_colliding() and ((Input.is_action_pressed("ui_left") and $wallchecker.rotation_degrees == 90 * grav_change[grav_change_index]["wall_dir"]) or (Input.is_action_pressed("ui_right") and $wallchecker.rotation_degrees == -90 * grav_change[grav_change_index]["wall_dir"])):
 			wall_dir = -1
@@ -220,31 +227,7 @@ func wall_state():
 		last_wall_dir = 0
 		wall_dir = 1
 		state = MOVE
-
-	
-func _on_hitbox_area_entered(area):
-	#enemy
-	if area.collision_layer == 128:
-		health -= 1
 		
-		GlobalScript.player_coords = self.position
-		if GlobalScript.enemy_coords[grav_change[grav_change_index]["index"]] > GlobalScript.player_coords[grav_change[grav_change_index]["index"]]:
-			velocity[grav_change[grav_change_index]["index"]] += 5 * -speed * grav_change[grav_change_index]["speed_dir"]
-		if GlobalScript.enemy_coords[grav_change[grav_change_index]["index"]] < GlobalScript.player_coords[grav_change[grav_change_index]["index"]]:
-			velocity[grav_change[grav_change_index]["index"]] += 5 * speed * grav_change[grav_change_index]["speed_dir"]
-		velocity[grav_change[grav_change_index]["index"] + 1] = 0.7 * jumpforce * (-gravity_vector[grav_change[grav_change_index]["index"] + 1])
-		state = HURT
-	
-	#spikes
-	"""need to have the player move up and backwards to where facing when hit"""
-	
-	#potion
-	if area.collision_layer == 512:
-		potion += 1
-		if potion >= 5:
-			health += 1
-			potion = 0
-	
 func hurt_state():
 	anitree.travel("hurt")
 	
@@ -261,5 +244,35 @@ func hurt_state():
 	set_modulate(Color(1,1,1,1))
 	
 	state = MOVE
-
+	
+	
+func _on_hitbox_area_entered(area):
+	#enemy
+	if area.collision_layer == 128:
+		health -= 1
+		
+		GlobalScript.player_coords = self.position
+		if GlobalScript.enemy_coords[grav_change[grav_change_index]["index"]] > GlobalScript.player_coords[grav_change[grav_change_index]["index"]]:
+			velocity[grav_change[grav_change_index]["index"]] += 5 * -speed * grav_change[grav_change_index]["speed_dir"]
+		if GlobalScript.enemy_coords[grav_change[grav_change_index]["index"]] < GlobalScript.player_coords[grav_change[grav_change_index]["index"]]:
+			velocity[grav_change[grav_change_index]["index"]] += 5 * speed * grav_change[grav_change_index]["speed_dir"]
+		velocity[grav_change[grav_change_index]["index"] + 1] = 0.7 * jumpforce * (-gravity_vector[grav_change[grav_change_index]["index"] + 1])
+		state = HURT
+	
+	if area.collision_layer == 1024:
+		health -= 1
+		state = HURT
+		self.position = last_pos
+	
+	#spikes
+	"""need to have the player move up and backwards to where facing when hit"""
+	
+	#potion
+	if area.collision_layer == 512:
+		potion += 1
+		if potion >= 5:
+			if health < 5:
+				health += 1
+			potion = 0
+	
 
