@@ -15,8 +15,6 @@ NOTES:
 
 -added orb that changes gravity of just the enemy
 
--if you fall off, you'll respawn at last place you fell and take damage
-
 CONTROLS:
 
 left, right = move

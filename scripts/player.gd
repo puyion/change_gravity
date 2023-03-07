@@ -77,8 +77,11 @@ var health = 5
 var potion = 0
 
 
+#var current_level
+
 func _ready():
 	anitree = $AnimationTree.get("parameters/playback")
+	#print(get_tree().current_scene.filename)
 
 
 func _physics_process(_delta):
@@ -122,12 +125,13 @@ func _physics_process(_delta):
 		HURT:
 			hurt_state()
 			
+	#current_level = str(get_tree().current_scene.filename)
 	
 	if $floorchecker.is_colliding():
 		last_pos = self.position
 	
 	if health <= 0:
-		pass
+		get_tree().reload_current_scene()
 
 	
 func move_state():
@@ -203,7 +207,7 @@ func wall_state():
 	#checks first to see if the player has already jumped in that direction
 	if last_wall_dir != $Sprite.scale.x:
 		if Input.is_action_just_pressed("ui_right") and ($Sprite.scale.x * grav_change[grav_change_index]["wall_dir"]) > 0 and not(Input.is_action_pressed("ui_left")):
-			velocity[grav_change[grav_change_index]["index"]] = wall_jump_speed
+			velocity[grav_change[grav_change_index]["index"]] = wall_jump_speed / 2
 			wall_dir = 1
 			last_wall_dir = $Sprite.scale.x
 			state = JUMP

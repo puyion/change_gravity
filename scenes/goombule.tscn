@@ -208,6 +208,12 @@ enabled = true
 collision_mask = 132
 collide_with_areas = true
 
+[node name="floorchecker" type="RayCast2D" parent="Sprite"]
+position = Vector2( 8, 0 )
+scale = Vector2( 0.5, 0.3 )
+enabled = true
+collision_mask = 4
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2( 0, -4 )

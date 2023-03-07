@@ -8,8 +8,9 @@ var grav_dict = {"90": "left",
 				"180": "up",
 				"0": "down"}
 
-var gamemode
-var level
+
+var level_list = ["res://scenes/practicelevel.tscn", "res://scenes/levels/level1.tscn"]
+var level = 1
 
 var player_coords = Vector2()
 var enemy_coords = Vector2()

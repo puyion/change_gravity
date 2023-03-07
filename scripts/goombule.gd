@@ -41,6 +41,7 @@ enum{
 	DEAD
 }
 
+
 var grav_change_index
 
 var anitree
@@ -81,6 +82,8 @@ func _physics_process(delta):
 			hurt_state()
 		DEAD:
 			dead_state()
+	
+	
 
 func idle_state():
 	anitree.travel("idle")
@@ -91,8 +94,9 @@ func idle_state():
 func move_state():
 	anitree.travel("walk")
 	velocity[grav_change[grav_change_index]["index"]] = speed * ($Sprite.scale.x/3) * grav_change[grav_change_index]["speed"]
-	if $Sprite/wallchecker.is_colliding():
+	if $Sprite/wallchecker.is_colliding() or not($Sprite/floorchecker.is_colliding()):
 		$Sprite.scale.x *= -1
+
 	if anitree.get_current_node() == "idle":
 		state = IDLE
 	
