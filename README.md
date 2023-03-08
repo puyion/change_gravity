@@ -15,6 +15,8 @@ NOTES:
 
 -added orb that changes gravity of just the enemy
 
+-added levels
+
 CONTROLS:
 
 left, right = move
@@ -33,7 +35,7 @@ left or right away from wall = wall jump
 
 NEXT STEPS:
 
--create levels
+-create boss level
 
 -possible slide
 
