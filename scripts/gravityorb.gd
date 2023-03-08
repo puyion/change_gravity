@@ -18,3 +18,5 @@ func _on_hitbox_area_entered(area):
 		
 	elif get_node("hitbox").collision_layer == 16:
 		GlobalScript.enemy_grav_index = GlobalScript.grav_dict[grav_rotation]
+		GlobalScript.enemy_obey = true
+		

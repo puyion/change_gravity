@@ -41,8 +41,12 @@ enum{
 	DEAD
 }
 
+var grav_dict = {"90": "left",
+				"270": "right",
+				"180": "up",
+				"0": "down"}
 
-var grav_change_index
+var grav_change_index = "down"
 
 var anitree
 var state = IDLE
@@ -52,7 +56,7 @@ func _ready():
 	anitree = $AnimationTree.get("parameters/playback")
 
 func _physics_process(delta):
-	grav_change_index = GlobalScript.enemy_grav_index
+	
 	GlobalScript.enemy_coords = self.position
 	
 	#velocity in both directions constantly changing
@@ -83,6 +87,10 @@ func _physics_process(delta):
 		DEAD:
 			dead_state()
 	
+	if GlobalScript.enemy_obey:
+		grav_change_index = GlobalScript.enemy_grav_index
+	else:
+		grav_change_index = grav_dict[str(round($separate_grav.rotation_degrees))]
 	
 
 func idle_state():

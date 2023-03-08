@@ -215,7 +215,6 @@ enabled = true
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 0, -4 )
 shape = SubResource( 1 )
 
@@ -244,6 +243,8 @@ shape = SubResource( 24 )
 process_mode = 0
 wait_time = 0.5
 one_shot = true
+
+[node name="separate_grav" type="RayCast2D" parent="."]
 
 [connection signal="area_entered" from="Sprite/playerdetect" to="." method="_on_playerdetect_area_entered"]
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
