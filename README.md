@@ -1,5 +1,5 @@
 # change_gravity
-changing direction of gravity of player in godot 2d
+changing direction of gravity of player in godot 2d (ver 3.5)
 
 NOTES:
 
